@@ -1,5 +1,11 @@
+import GlobalStyles from './style/Global.styled';
+
 function App() {
-  return <h1>jo</h1>;
+  return (
+    <>
+      <GlobalStyles />
+    </>
+  );
 }
 
 export default App;
