@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useValid from '../hooks/useValid';
+import { useGlobalDispatch } from '../store/GlobalContext';
 import { signin } from '../api/user';
+import useValid from '../hooks/useValid';
 import { SignLayout, InputLayout, Button } from '../style/Sign.styled';
 
 interface FormProps {
@@ -17,6 +18,7 @@ const Login = () => {
   const [isdeActive, setIsdeActive] = useState<boolean>(true);
   const [validationText, isValid] = useValid(formValue);
   const navigate = useNavigate();
+  const dispatch = useGlobalDispatch();
 
   useEffect(() => {
     if (isValid.email && isValid.password) {
@@ -44,6 +46,7 @@ const Login = () => {
         alert(res.message);
         return;
       } else {
+        dispatch({ type: 'GET_TOKEN', token: res.access_token });
         localStorage.setItem('token', res.access_token);
         navigate('/todo');
       }

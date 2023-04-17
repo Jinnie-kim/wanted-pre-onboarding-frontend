@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useGlobalState } from './store/GlobalContext';
 
 import Initial from './pages/Initial';
 import Signup from './pages/Singup';
@@ -7,8 +8,8 @@ import Todo from './pages/Todo';
 import GlobalStyles from './style/Global.styled';
 
 function App() {
-  const token = localStorage.getItem('token');
-  console.log(token);
+  const { token } = useGlobalState();
+
   return (
     <BrowserRouter>
       <GlobalStyles />
