@@ -12,3 +12,14 @@ export const createTodo = async (token: string, todo: string) => {
     }),
   });
 };
+
+export const getTodo = async (token: string) => {
+  const response = await fetch(`${BASE_URL}/todos`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return await response.json();
+};

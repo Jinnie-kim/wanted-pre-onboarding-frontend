@@ -1,10 +1,23 @@
-import { createTodo } from '../api/todo';
+import { useEffect, useState } from 'react';
+import { createTodo, getTodo } from '../api/todo';
 import { useGlobalState } from '../store/GlobalContext';
 import TodoList from '../components/TodoList';
 import { TodoLayout, TodoInputLayout, TodoInput, Button, TodoBox } from '../style/Todo.styled';
 
+interface Todos {
+  id: number;
+  todo: string;
+  isCompleted: boolean;
+  userId: number;
+}
+
 const Todo = () => {
   const { token } = useGlobalState();
+  const [todos, setTodos] = useState<Todos[]>();
+
+  useEffect(() => {
+    getTodo(token!).then((res) => setTodos(res));
+  }, [todos]);
 
   const submitTodoHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,7 +36,9 @@ const Todo = () => {
         </Button>
       </TodoInputLayout>
       <TodoBox>
-        <TodoList todo="todo1" />
+        {todos?.map((todo) => {
+          return <TodoList key={todo.id} todo={todo.todo} />;
+        })}
       </TodoBox>
     </TodoLayout>
   );
