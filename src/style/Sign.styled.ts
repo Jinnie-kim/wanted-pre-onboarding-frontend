@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LoginLayout = styled.section`
+export const SignLayout = styled.section`
   width: auto;
   height: fit-content;
   display: flex;
@@ -29,7 +29,7 @@ export const InputLayout = styled.div`
   }
 `;
 
-export const LoginButton = styled.button`
+export const Button = styled.button`
   width: 118px;
   padding: 16px 21px;
   margin: 0 auto;
