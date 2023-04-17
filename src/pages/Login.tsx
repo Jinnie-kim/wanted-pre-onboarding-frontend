@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useValid from '../hooks/useValid';
+import { signin } from '../api/user';
 import { SignLayout, InputLayout, Button } from '../style/Sign.styled';
 
 interface FormProps {
@@ -14,6 +16,7 @@ const Login = () => {
   });
   const [isdeActive, setIsdeActive] = useState<boolean>(true);
   const [validationText, isValid] = useValid(formValue);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isValid.email && isValid.password) {
@@ -31,10 +34,26 @@ const Login = () => {
     });
   };
 
+  const submitToSignin = (e: React.FormEvent) => {
+    e.preventDefault();
+    signin(formValue).then((res) => {
+      if (res.statusCode === 401) {
+        alert('비밀번호를 확인하세요.');
+        return;
+      } else if (res.statusCode === 404) {
+        alert(res.message);
+        return;
+      } else {
+        localStorage.setItem('token', res.access_token);
+        navigate('/todo');
+      }
+    });
+  };
+
   return (
     <SignLayout>
       <h1>로그인</h1>
-      <form>
+      <form onSubmit={submitToSignin}>
         <InputLayout>
           <label htmlFor="email">
             이메일 <span>{validationText.email}</span>
@@ -47,7 +66,7 @@ const Login = () => {
           </label>
           <input type="password" id="password" name="password" data-testid="password-input" onChange={getUserInfo} />
         </InputLayout>
-        <Button type="button" data-testid="signin-button" disabled={isdeActive} deActive={isdeActive}>
+        <Button type="submit" data-testid="signin-button" disabled={isdeActive} deActive={isdeActive}>
           로그인하기
         </Button>
       </form>
