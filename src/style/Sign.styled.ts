@@ -21,6 +21,10 @@ export const InputLayout = styled.div`
   margin-bottom: 40px;
   label {
     margin-bottom: 10px;
+    span {
+      font-size: 12px;
+      color: dodgerblue;
+    }
   }
   input {
     width: 226px;
@@ -29,13 +33,14 @@ export const InputLayout = styled.div`
   }
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<{ deActive: boolean }>`
   width: 118px;
   padding: 16px 21px;
   margin: 0 auto;
   border: 1px solid dodgerblue;
   &:hover {
-    background-color: dodgerblue;
-    color: #fff;
+    background-color: ${(props) => (props.deActive ? '' : 'dodgerblue')};
+    color: ${(props) => (props.deActive ? '' : '#fff')};
+    cursor: ${(props) => (props.deActive ? 'not-allowed' : 'pointer')};
   }
 `;
