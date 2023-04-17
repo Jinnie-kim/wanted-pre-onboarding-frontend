@@ -14,7 +14,7 @@ export const TodoLayout = styled.section`
   }
 `;
 
-export const TodoInputLayout = styled.div`
+export const TodoInputLayout = styled.form`
   display: flex;
   margin-bottom: 60px;
 `;
