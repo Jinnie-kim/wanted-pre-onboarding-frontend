@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { signup } from '../api/user';
 import useValid from '../hooks/useValid';
 import { SignLayout, InputLayout, Button } from '../style/Sign.styled';
 
@@ -14,6 +16,7 @@ const Signup = () => {
   });
   const [isdeActive, setIsdeActive] = useState<boolean>(true);
   const [validationText, isValid] = useValid(formValue);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isValid.email && isValid.password) {
@@ -30,10 +33,23 @@ const Signup = () => {
       [name]: value,
     });
   };
+
+  const submitToSignup = (e: React.FormEvent) => {
+    e.preventDefault();
+    signup(formValue).then((res) => {
+      if (res.status === 400) {
+        alert('동일한 이메일이 이미 존재합니다.');
+        return;
+      } else if (res.status === 201) {
+        navigate('/signin');
+      }
+    });
+  };
+
   return (
     <SignLayout>
       <h1>회원가입</h1>
-      <form>
+      <form onSubmit={submitToSignup}>
         <InputLayout>
           <label htmlFor="email">
             이메일 <span>{validationText.email}</span>
@@ -46,7 +62,7 @@ const Signup = () => {
           </label>
           <input type="password" id="password" name="password" data-testid="password-input" onChange={getUserInfo} />
         </InputLayout>
-        <Button data-testid="signup-button" disabled={isdeActive} deActive={isdeActive}>
+        <Button type="submit" data-testid="signup-button" disabled={isdeActive} deActive={isdeActive}>
           회원가입
         </Button>
       </form>
