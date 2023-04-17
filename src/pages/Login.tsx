@@ -1,18 +1,21 @@
-import { LoginLayout, InputLayout, LoginButton } from '../style/Login.styled';
+import { SignLayout, InputLayout, Button } from '../style/Sign.styled';
+
 const Login = () => {
   return (
-    <LoginLayout>
+    <SignLayout>
       <h1>로그인</h1>
       <InputLayout>
         <label htmlFor="email">이메일</label>
-        <input type="text" id="email" />
+        <input type="text" id="email" data-testid="email-input" />
       </InputLayout>
       <InputLayout>
         <label htmlFor="password">비밀번호</label>
-        <input type="password" id="password" />
+        <input type="password" id="password" data-testid="password-input" />
       </InputLayout>
-      <LoginButton type="button">로그인하기</LoginButton>
-    </LoginLayout>
+      <Button type="button" data-testid="signin-button">
+        로그인하기
+      </Button>
+    </SignLayout>
   );
 };
 
