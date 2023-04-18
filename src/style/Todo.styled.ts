@@ -39,7 +39,22 @@ export const Button = styled.button`
 export const TodoBox = styled.ol`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 15px;
+  height: 500px;
+  padding-top: 10px;
+  padding-left: 0;
+  overflow-y: auto;
+  border: 1px solid dodgerblue;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: dodgerblue;
+    border-radius: 6px;
+  }
 `;
 
 export const Todo = styled.li`
