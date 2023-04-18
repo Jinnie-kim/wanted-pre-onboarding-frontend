@@ -36,3 +36,19 @@ export const deleteTodo = async (token: string, id: number) => {
 
   return response;
 };
+
+export const updateTodo = async (token: string, id: number, todo: string, isCompleted: boolean) => {
+  const response = await fetch(`${BASE_URL}/todos/${id}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      todo: todo,
+      isCompleted: isCompleted,
+    }),
+  });
+
+  return await response.json();
+};

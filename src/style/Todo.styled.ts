@@ -65,3 +65,7 @@ export const Todo = styled.li`
     }
   }
 `;
+
+export const ModifyInput = styled.input`
+  width: 185px;
+`;
