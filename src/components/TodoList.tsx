@@ -1,21 +1,25 @@
-import { Todo } from '../style/Todo.styled';
+import TodoItem from './TodoItem';
+import { TodoBox } from '../style/Todo.styled';
 
-interface TodoListProp {
+interface Todo {
+  id: number;
   todo: string;
+  isCompleted: boolean;
+  userId: number;
 }
 
-const TodoList = ({ todo }: TodoListProp) => {
+interface Todos {
+  todos: Todo[];
+  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+}
+
+const TodoList = ({ todos, setTodos }: Todos) => {
   return (
-    <Todo>
-      <input type="checkbox" />
-      <p>{todo}</p>
-      <button type="button" data-testid="modify-button">
-        수정
-      </button>
-      <button type="button" data-testid="delete-button">
-        삭제
-      </button>
-    </Todo>
+    <TodoBox>
+      {todos?.map((todo) => {
+        return <TodoItem key={todo.id} todo={todo} todos={todos} setTodos={setTodos} />;
+      })}
+    </TodoBox>
   );
 };
 

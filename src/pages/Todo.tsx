@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { createTodo, getTodo } from '../api/todo';
 import { useGlobalState } from '../store/GlobalContext';
 import TodoList from '../components/TodoList';
-import { TodoLayout, TodoInputLayout, TodoInput, Button, TodoBox } from '../style/Todo.styled';
+import { TodoLayout, TodoInputLayout, TodoInput, Button } from '../style/Todo.styled';
 
 interface Todos {
   id: number;
@@ -44,12 +44,7 @@ const Todo = () => {
           추가
         </Button>
       </TodoInputLayout>
-      <TodoBox>
-        {todos &&
-          todos.map((todo) => {
-            return <TodoList key={todo.id} todo={todo} />;
-          })}
-      </TodoBox>
+      <TodoList todos={todos} setTodos={setTodos} />
     </TodoLayout>
   );
 };
