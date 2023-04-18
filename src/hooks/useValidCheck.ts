@@ -16,7 +16,7 @@ interface ValidCheckProp {
   password: boolean;
 }
 
-const useValid = (value: ValueProp) => {
+const useValidCheck = (value: ValueProp) => {
   const { email, password } = value;
 
   const [validationText, setValidationText] = useState<ValidTextProp>({
@@ -57,4 +57,4 @@ const useValid = (value: ValueProp) => {
   return [validationText, isValid];
 };
 
-export default useValid;
+export default useValidCheck;

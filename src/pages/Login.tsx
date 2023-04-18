@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGlobalDispatch } from '../store/GlobalContext';
 import { signin } from '../api/user';
-import useValid from '../hooks/useValid';
+import useValidCheck from '../hooks/useValidCheck';
 import { SignLayout, InputLayout, Button } from '../style/Sign.styled';
 
 interface FormProps {
@@ -16,7 +16,7 @@ const Login = () => {
     password: '',
   });
   const [isdeActive, setIsdeActive] = useState<boolean>(true);
-  const [validationText, isValid] = useValid(formValue);
+  const [validationText, isValid] = useValidCheck(formValue);
   const navigate = useNavigate();
   const dispatch = useGlobalDispatch();
 
