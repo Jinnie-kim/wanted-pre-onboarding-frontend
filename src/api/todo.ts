@@ -1,7 +1,7 @@
 const BASE_URL = 'https://www.pre-onboarding-selection-task.shop';
 
 export const createTodo = async (token: string, todo: string) => {
-  await fetch(`${BASE_URL}/todos`, {
+  const response = await fetch(`${BASE_URL}/todos`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -11,6 +11,8 @@ export const createTodo = async (token: string, todo: string) => {
       todo: todo,
     }),
   });
+
+  return await response.json();
 };
 
 export const getTodo = async (token: string) => {

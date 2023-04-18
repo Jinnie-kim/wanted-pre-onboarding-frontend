@@ -13,32 +13,42 @@ interface Todos {
 
 const Todo = () => {
   const { token } = useGlobalState();
-  const [todos, setTodos] = useState<Todos[]>();
+  const [todo, setTodo] = useState<string>('');
+  const [todoList, setTodoList] = useState<Todos[]>([]);
+  const [todos, setTodos] = useState<Todos[]>([]);
 
   useEffect(() => {
-    getTodo(token!).then((res) => setTodos(res));
-  }, [todos]);
+    getTodo(token!).then((res) => setTodoList(res));
+  }, []);
+
+  useEffect(() => {
+    setTodos(todoList);
+  }, [todoList]);
 
   const submitTodoHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const todo = formData.get('todo') as string;
-    createTodo(token!, todo);
+    if (todo) {
+      createTodo(token!, todo).then((res) => {
+        setTodo('');
+        setTodos([...todos, res]);
+      });
+    }
   };
 
   return (
     <TodoLayout>
       <h1>Todo</h1>
       <TodoInputLayout onSubmit={submitTodoHandler}>
-        <TodoInput type="text" data-testid="new-todo-input" name="todo" />
+        <TodoInput type="text" data-testid="new-todo-input" value={todo} onChange={(e) => setTodo(e.target.value)} />
         <Button type="submit" data-testid="new-todo-add-button">
           추가
         </Button>
       </TodoInputLayout>
       <TodoBox>
-        {todos?.map((todo) => {
-          return <TodoList key={todo.id} todo={todo.todo} />;
-        })}
+        {todos &&
+          todos.map((todo) => {
+            return <TodoList key={todo.id} todo={todo} />;
+          })}
       </TodoBox>
     </TodoLayout>
   );
