@@ -1,19 +1,8 @@
 import TodoItem from './TodoItem';
+import { TodoListType } from '../type/todo';
 import { TodoBox } from '../style/Todo.styled';
 
-interface Todo {
-  id: number;
-  todo: string;
-  isCompleted: boolean;
-  userId: number;
-}
-
-interface Todos {
-  todos: Todo[];
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-}
-
-const TodoList = ({ todos, setTodos }: Todos) => {
+const TodoList = ({ todos, setTodos }: TodoListType) => {
   return (
     <TodoBox>
       {todos?.map((todo) => {

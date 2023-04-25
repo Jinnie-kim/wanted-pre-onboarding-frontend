@@ -2,20 +2,14 @@ import { useEffect, useState } from 'react';
 import { createTodo, getTodo } from '../api/todo';
 import { useGlobalState } from '../store/GlobalContext';
 import TodoList from '../components/TodoList';
+import { TodoType } from '../type/todo';
 import { TodoLayout, TodoInputLayout, TodoInput, Button } from '../style/Todo.styled';
-
-interface Todos {
-  id: number;
-  todo: string;
-  isCompleted: boolean;
-  userId: number;
-}
 
 const Todo = () => {
   const { token } = useGlobalState();
   const [todo, setTodo] = useState<string>('');
-  const [todoList, setTodoList] = useState<Todos[]>([]);
-  const [todos, setTodos] = useState<Todos[]>([]);
+  const [todoList, setTodoList] = useState<TodoType[]>([]);
+  const [todos, setTodos] = useState<TodoType[]>([]);
 
   useEffect(() => {
     getTodo(token!).then((res) => setTodoList(res));

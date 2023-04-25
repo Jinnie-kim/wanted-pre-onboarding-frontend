@@ -1,22 +1,10 @@
 import { useState } from 'react';
 import { deleteTodo, updateTodo } from '../api/todo';
 import { useGlobalState } from '../store/GlobalContext';
+import { TodoItemType } from '../type/todo';
 import { Todo, ModifyInput } from '../style/Todo.styled';
 
-interface TodoType {
-  id: number;
-  todo: string;
-  isCompleted: boolean;
-  userId: number;
-}
-
-interface Todos {
-  todo: TodoType;
-  todos: TodoType[];
-  setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
-}
-
-const TodoItem = ({ todo, todos, setTodos }: Todos) => {
+const TodoItem = ({ todo, todos, setTodos }: TodoItemType) => {
   const { token } = useGlobalState();
   const [todoItem, setTodoItem] = useState(todo.todo);
   const [IsTodoCheck, setIsTodoCheck] = useState<boolean>(todo.isCompleted);
